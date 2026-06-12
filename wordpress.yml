@@ -1,0 +1,36 @@
+---
+- hosts: web
+  become: yes
+
+  tasks:
+
+  - name: Install Nginx
+    dnf:
+      name: nginx
+      state: present
+
+  - name: Install PHP
+    dnf:
+      name:
+        - php
+        - php-fpm
+        - php-mysqlnd
+      state: present
+
+  - name: Install MariaDB
+    dnf:
+      name:
+        - mariadb105-server
+      state: present
+
+  - name: Start Nginx
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+
+  - name: Start MariaDB
+    service:
+      name: mariadb
+      state: started
+      enabled: yes
